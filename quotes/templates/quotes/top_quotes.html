@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Топ цитат</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f8f1e5;
+            --secondary-color: #e2d5c0;
+            --accent-color: #c5a880;
+            --dark-bg: #121212;
+            --transition-speed: 0.5s;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quote-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .quote-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-left: 3px solid var(--accent-color);
+            padding: 30px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.1), transparent);
+            z-index: -1;
+        }
+
+        .quote-rank {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .quote-text::before {
+            content: '"';
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            font-size: 2rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .quote-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(197, 168, 128, 0.2);
+        }
+
+        .quote-author {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .quote-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            margin-right: 5px;
+            color: var(--accent-color);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(197, 168, 128, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .quote-list {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Топ 10 цитат</h1>
+            <p>Самые популярные цитаты по оценкам пользователей</p>
+        </div>
+
+        <div class="quote-list">
+            {% for quote in top_quotes %}
+            <div class="quote-card">
+                <div class="quote-rank">#{{ forloop.counter }}</div>
+                <div class="quote-text">{{ quote.text }}</div>
+                <div class="quote-meta">
+                    <div class="quote-author">{{ quote.source.name }}</div>
+                    <div class="quote-stats">
+                        <div class="stat-item">
+                            <i>👍</i> {{ quote.likes }}
+                        </div>
+                        <div class="stat-item">
+                            <i>👎</i> {{ quote.dislikes }}
+                        </div>
+                        <div class="stat-item">
+                            <i>👁️</i> {{ quote.views }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="back-btn">← На главную</a>
+    </div>
+</body>
+</html>

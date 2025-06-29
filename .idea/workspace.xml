@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="379b6299-ef27-4e9a-b309-06f9415e60c6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/quotes/templates/quotes/random_quote.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quotes/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="379b6299-ef27-4e9a-b309-06f9415e60c6" name="Changes" comment="Beginning&#10;&#10;The database structure has been developed, and the simplest way to display a quote on the screen has been created">
+      <change afterPath="$PROJECT_DIR$/quotes/templates/quotes/top_quotes.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quotes/templates/quotes/random_quote.html" beforeDir="false" afterPath="$PROJECT_DIR$/quotes/templates/quotes/random_quote.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quotes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/quotes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quotes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/quotes/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,36 +27,36 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Nikiryrk"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Nikiryrk&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Nikiryrk/Quotes.git",
-    "accountId": "d80f7bac-dc09-4a08-a4b1-3fea93ffc0bc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Nikiryrk/Quotes.git&quot;,
+    &quot;accountId&quot;: &quot;d80f7bac-dc09-4a08-a4b1-3fea93ffc0bc&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2zAwvQJWdZsdpGBLb2AUsO5sEeO" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/nikit/PycharmProjects/Quotes/quotes"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nikit/PycharmProjects/Quotes/quotes&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nikit\PycharmProjects\Quotes\quotes" />
@@ -76,6 +78,15 @@
       <option name="presentableId" value="Default" />
       <updated>1751187415423</updated>
     </task>
+    <task id="LOCAL-00001" summary="Beginning&#10;&#10;The database structure has been developed, and the simplest way to display a quote on the screen has been created">
+      <option name="closed" value="true" />
+      <created>1751197445142</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751197445142</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -88,5 +99,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Beginning&#10;&#10;The database structure has been developed, and the simplest way to display a quote on the screen has been created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Beginning&#10;&#10;The database structure has been developed, and the simplest way to display a quote on the screen has been created" />
   </component>
 </project>

@@ -3,87 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Случайная цитата</title>
+    <title>Мудрая цитата</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #f8f1e5;
+            --secondary-color: #e2d5c0;
+            --accent-color: #c5a880;
+            --transition-speed: 0.5s;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        .quote-container {
-            background-color: #f9f9f9;
-            border-left: 5px solid #4CAF50;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .quote-text {
-            font-size: 1.2em;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-        .quote-source {
-            font-weight: bold;
-            color: #555;
-        }
-        .quote-meta {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #666;
+            font-family: 'Playfair Display', serif;
+            background-color: #121212;
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100, 80, 60, 0.1) 0%, rgba(0, 0, 0, 0.9) 90%);
+            overflow-x: hidden;
+            position: relative;
         }
-        .rating-buttons {
-            margin-top: 15px;
-        }
-        .btn {
-            padding: 8px 15px;
-            margin-right: 10px;
-            border: none;
-            border-radius: 4px;
+
+        /* Плашка TOP-10 */
+        .top10-panel {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 200px;
+            background: rgba(197, 168, 128, 0.2);
+            backdrop-filter: blur(5px);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--primary-color);
             cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 10;
         }
-        .like-btn {
-            background-color: #4CAF50;
-            color: white;
+
+        .top10-panel:hover {
+            background: rgba(197, 168, 128, 0.3);
+            width: 70px;
         }
-        .dislike-btn {
-            background-color: #f44336;
-            color: white;
+
+        /* Анимация перехода */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #121212;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
         }
-        .refresh-btn {
-            background-color: #2196F3;
-            color: white;
-            margin-top: 20px;
+
+        .quote-container {
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-text {
+            font-size: 2.4rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 400;
+            position: relative;
+            text-shadow: 0 0 10px rgba(248, 241, 229, 0.3);
+        }
+
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .quote-text::before {
+            top: -20px;
+            left: -40px;
+        }
+
+        .quote-text::after {
+            bottom: -40px;
+            right: -40px;
+        }
+
+        .quote-author {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .quote-author::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 1px;
+            background: var(--accent-color);
+            margin: 15px auto;
+            opacity: 0.3;
+        }
+
+        .quote-meta {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls {
+            margin-top: 60px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--accent-color);
+            padding: 12px 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: rgba(197, 168, 128, 0.1);
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .rate-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all var(--transition-speed) ease;
+            padding: 10px;
+            line-height: 1;
+        }
+
+        .rate-btn:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .like-btn:hover {
+            color: #a5d6a7;
+            text-shadow: 0 0 15px rgba(165, 214, 167, 0.5);
+        }
+
+        .dislike-btn:hover {
+            color: #ef9a9a;
+            text-shadow: 0 0 15px rgba(239, 154, 154, 0.5);
+        }
+
+        .counter {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            min-width: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .like-count {
+            color: #a5d6a7;
+        }
+
+        .dislike-count {
+            color: #ef9a9a;
+        }
+
+        .divider {
+            margin: 0 10px;
+            opacity: 0.5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .quote-text {
+                font-size: 1.8rem;
+            }
+
+            .quote-text::before,
+            .quote-text::after {
+                font-size: 2rem;
+            }
+
+            .quote-text::before {
+                left: -20px;
+            }
+
+            .quote-text::after {
+                right: -20px;
+            }
+
+            .top10-panel {
+                width: 50px;
+                height: 150px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Случайная цитата</h1>
+    <div class="particles" id="particles-js"></div>
+
+    <div class="top10-panel" id="top10Panel">TOP-10</div>
+
+    <div class="page-transition" id="pageTransition"></div>
 
     <div class="quote-container">
         <div class="quote-text">{{ quote.text }}</div>
-        <div class="quote-source">— {{ quote.source.name }} ({{ quote.source.get_type_display }})</div>
+        <div class="quote-author">{{ quote.source.name }}</div>
 
         <div class="quote-meta">
-            <span>Вес: {{ quote.weight }}</span>
-            <span>Просмотров: {{ quote.views }}</span>
-            <span>Рейтинг: {{ quote.likes }} 👍 / {{ quote.dislikes }} 👎</span>
+            <div>📖 {{ quote.source.get_type_display }}</div>
+            <div>⭐ Вес: {{ quote.weight }}/10</div>
+            <div>👁️ Просмотров: {{ quote.views }}</div>
         </div>
 
-        <div class="rating-buttons">
-            <button class="btn like-btn" onclick="rateQuote({{ quote.id }}, 'like')">Нравится</button>
-            <button class="btn dislike-btn" onclick="rateQuote({{ quote.id }}, 'dislike')">Не нравится</button>
+        <div class="controls">
+            <button class="btn" onclick="window.location.reload()">
+                <span>Новая цитата</span>
+            </button>
+        </div>
+
+        <div class="rating-container">
+            <button class="rate-btn like-btn" onclick="rateQuote({{ quote.id }}, 'like')">👍</button>
+            <span class="counter like-count">{{ quote.likes }}</span>
+
+            <span class="divider">|</span>
+
+            <span class="counter dislike-count">{{ quote.dislikes }}</span>
+            <button class="rate-btn dislike-btn" onclick="rateQuote({{ quote.id }}, 'dislike')">👎</button>
         </div>
     </div>
 
-    <button class="btn refresh-btn" onclick="window.location.reload()">Другая цитата</button>
-
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: "#c5a880" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#c5a880", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: true }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    }
+                }
+            });
+
+            document.getElementById('top10Panel').addEventListener('click', function() {
+                const transition = document.getElementById('pageTransition');
+                transition.style.opacity = '1';
+                transition.style.pointerEvents = 'auto';
+
+                setTimeout(() => {
+                    window.location.href = '/top-quotes/';
+                }, 600);
+            });
+        });
+
         function rateQuote(quoteId, action) {
+            const likeCount = document.querySelector('.like-count');
+            const dislikeCount = document.querySelector('.dislike-count');
+
+            if (action === 'like') {
+                likeCount.style.animation = 'pulse 0.5s';
+            } else {
+                dislikeCount.style.animation = 'pulse 0.5s';
+            }
+
             fetch(`/quotes/${quoteId}/rate/`, {
                 method: 'POST',
                 headers: {
@@ -97,8 +382,18 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    window.location.reload();
+                    likeCount.textContent = data.likes;
+                    dislikeCount.textContent = data.dislikes;
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    likeCount.style.animation = '';
+                    dislikeCount.style.animation = '';
+                }, 500);
             });
         }
     </script>
