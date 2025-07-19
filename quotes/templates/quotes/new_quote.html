@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить цитату</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #f8f1e5;
+            --secondary-color: #e2d5c0;
+            --accent-color: #c5a880;
+            --dark-bg: #121212;
+            --transition-speed: 0.5s;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at 10% 20%, rgba(100, 80, 60, 0.1) 0%, rgba(0, 0, 0, 0.9) 90%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            width: 90%;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-form {
+            background: rgba(30, 30, 30, 0.7);
+            border-left: 3px solid var(--accent-color);
+            padding: 40px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        .profile-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.1), transparent);
+            z-index: -1;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 400;
+            color: var(--secondary-color);
+            transition: all var(--transition-speed) ease;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 4px;
+            transition: all var(--transition-speed) ease;
+            font-size: 1rem;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c5a880' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            cursor: pointer;
+        }
+
+        select option {
+            background: rgba(30, 30, 30, 0.9);
+            color: var(--primary-color);
+            padding: 10px;
+        }
+
+        select option:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+        }
+
+        select option:checked {
+            background-color: rgba(197, 168, 128, 0.3);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.2);
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            margin-top: 30px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        button[type="submit"]:hover::before {
+            left: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: rgba(197, 168, 128, 0.1);
+        }
+
+        .errorlist {
+            color: #ef9a9a;
+            margin-top: 5px;
+            padding-left: 0;
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .helptext {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            opacity: 0.7;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .messages li {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background: rgba(165, 214, 167, 0.2);
+            color: #a5d6a7;
+            border-left: 3px solid #a5d6a7;
+        }
+
+        .messages .error {
+            background: rgba(239, 154, 154, 0.2);
+            color: #ef9a9a;
+            border-left: 3px solid #ef9a9a;
+        }
+
+        .source-toggle {
+            margin: 15px 0;
+            text-align: center;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        .source-toggle::before,
+        .source-toggle::after {
+            content: "——";
+            margin: 0 10px;
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .source-type-select {
+            margin-top: 10px;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(197, 168, 128, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 20px;
+            }
+
+            .profile-form {
+                padding: 30px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles-js"></div>
+
+    <div class="profile-container">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="post" class="profile-form" action="{% url 'new_quote' %}">
+            {% csrf_token %}
+            <h2>Добавить цитату</h2>
+
+            <div class="form-group">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+                {% if form.text.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.text.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.source.label_tag }}
+                {{ form.source }}
+                {% if form.source.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.source.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="source-toggle">или</div>
+
+            <div class="form-group" id="new-source-name-group">
+                {{ form.new_source_name.label_tag }}
+                {{ form.new_source_name }}
+                {% if form.new_source_name.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.new_source_name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group" id="new-source-type-group">
+                {{ form.new_source_type.label_tag }}
+                {{ form.new_source_type }}
+                {% if form.new_source_type.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.new_source_type.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.weight.label_tag }}
+                {{ form.weight }}
+                {% if form.weight.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.weight.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if form.weight.help_text %}
+                    <span class="helptext">{{ form.weight.help_text }}</span>
+                {% endif %}
+            </div>
+
+            <button type="submit">Добавить цитату</button>
+        </form>
+    </div>
+
+    <a href="/" class="back-btn">← На главную</a>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 30, density: { enable: true, value_area: 800 } },
+                    color: { value: "#c5a880" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#c5a880", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: true }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    }
+                }
+            });
+
+            const sourceSelect = document.getElementById('id_source');
+            const newSourceName = document.getElementById('id_new_source_name');
+            const newSourceType = document.getElementById('id_new_source_type');
+            const newSourceNameGroup = document.getElementById('new-source-name-group');
+            const newSourceTypeGroup = document.getElementById('new-source-type-group');
+
+            function toggleSourceFields() {
+                if (sourceSelect.value) {
+                    newSourceName.disabled = true;
+                    newSourceType.disabled = true;
+                    newSourceNameGroup.style.display = 'none';
+                    newSourceTypeGroup.style.display = 'none';
+                } else {
+                    newSourceName.disabled = false;
+                    newSourceType.disabled = false;
+                    newSourceNameGroup.style.display = 'block';
+                    newSourceTypeGroup.style.display = 'block';
+                }
+            }
+
+            toggleSourceFields();
+
+            sourceSelect.addEventListener('change', toggleSourceFields);
+
+            newSourceName.addEventListener('input', function() {
+                if (this.value) {
+                    sourceSelect.value = '';
+                    toggleSourceFields();
+                }
+            });
+
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                const label = input.parentElement.querySelector('label');
+                if (label) {
+                    input.addEventListener('focus', function() {
+                        label.style.color = 'var(--accent-color)';
+                    });
+                    input.addEventListener('blur', function() {
+                        label.style.color = 'var(--secondary-color)';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

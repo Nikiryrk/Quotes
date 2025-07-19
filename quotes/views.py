@@ -1,12 +1,15 @@
 import json
-
-from django.db.models import F
-from django.shortcuts import render
-from .models import Quote
 import random
+from django.db.models import F
+from pyexpat.errors import messages
+
+from .models import Quote, Source
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from .forms import QuoteForm
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
+
 # Create your views here.
 def index(request):
     quotes = list(Quote.objects.all())
@@ -47,3 +50,16 @@ def rate_quote(request, quote_id):
         return JsonResponse({'status': 'error', 'message': 'Цитата не найдена'}, status=404)
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+def new_quote(request):
+    if request.method == 'POST':
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = QuoteForm()
+
+    return render(request, 'quotes/new_quote.html', {'form': form})
+

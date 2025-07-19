@@ -30,7 +30,6 @@
             position: relative;
         }
 
-        /* Плашка TOP-10 */
         .top10-panel {
             position: fixed;
             right: 0;
@@ -61,7 +60,37 @@
             width: 70px;
         }
 
-        /* Анимация перехода */
+        .new-panel {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(180deg);;
+            width: 60px;
+            height: 200px;
+            background: rgba(197, 168, 128, 0.2);
+            backdrop-filter: blur(5px);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 10;
+        }
+
+
+        .new-panel:hover {
+            background: rgba(197, 168, 128, 0.3);
+            width: 70px;
+        }
+
         .page-transition {
             position: fixed;
             top: 0;
@@ -288,6 +317,12 @@
                 height: 150px;
                 font-size: 1rem;
             }
+
+            .new-panel {
+                width: 50px;
+                height: 150px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -295,6 +330,8 @@
     <div class="particles" id="particles-js"></div>
 
     <div class="top10-panel" id="top10Panel">TOP-10</div>
+
+    <div class="new-panel" id="new">Добавить</div>
 
     <div class="page-transition" id="pageTransition"></div>
 
@@ -348,6 +385,7 @@
                 }
             });
 
+
             document.getElementById('top10Panel').addEventListener('click', function() {
                 const transition = document.getElementById('pageTransition');
                 transition.style.opacity = '1';
@@ -358,6 +396,17 @@
                 }, 600);
             });
         });
+
+        document.getElementById('new').addEventListener('click', function() {
+    const transition = document.getElementById('pageTransition');
+    transition.style.opacity = '1';
+    transition.style.pointerEvents = 'auto';
+
+    setTimeout(() => {
+        window.location.href = '/new-quote/';
+    }, 600);
+});
+
 
         function rateQuote(quoteId, action) {
             const likeCount = document.querySelector('.like-count');
